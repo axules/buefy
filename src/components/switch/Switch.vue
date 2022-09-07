@@ -3,7 +3,7 @@
         class="switch"
         :class="newClass"
         ref="label"
-        :disabled="disabled"
+        :disabled="disabled ? true : undefined"
         @click="focus"
         @keydown.prevent.enter="$refs.label.click()"
         @mousedown="isMouseDown = true"
@@ -15,7 +15,7 @@
             type="checkbox"
             ref="input"
             @click.stop
-            :disabled="disabled"
+            :disabled="disabled ? true : undefined"
             :name="name"
             :required="required"
             :value="nativeValue"
@@ -72,7 +72,7 @@ export default {
     },
     data() {
         return {
-            newValue: this.value,
+            newValue: this.modelValue,
             isMouseDown: false
         }
     },
@@ -83,7 +83,7 @@ export default {
             },
             set(value) {
                 this.newValue = value
-                this.$emit('input', value)
+                this.$emit('update:modelValue', value)
             }
         },
         newClass() {
